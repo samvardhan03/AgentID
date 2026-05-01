@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package agentid.v1;
+
+// AgentIdService — centralized identity, token minting, and verification.
+//
+// This service is intentionally minimal. The wire format for tokens is the
+// compact binary format defined in `token.rs` (NOT JWT). All cryptographic
+// operations are Ed25519. Verification is always offline — this RPC exists
+// for clients that don't ship the SDK.
+service AgentIdService {
+  // Mint a token for a stored identity. Requires the server to hold the
+  // private key for the requested fingerprint (vault password is provided
+  // out-of-band, e.g. via `AGENTID_VAULT_PASSWORD`).
+  rpc MintToken(MintTokenRequest) returns (MintTokenResponse);
+
+  // Verify a token and return its decoded claims. No network calls.
+  rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
+
+  // List identities known to the vault (public information only).
+  rpc ListIdentities(ListIdentitiesRequest) returns (ListIdentitiesResponse);
+
+  // Liveness/readiness probe.
+  rpc Health(HealthRequest) returns (HealthResponse);
+}
+
+message MintTokenRequest {
+  // Fingerprint of the identity to mint with, e.g. "ag:sha256:abcd...".
+  string fingerprint = 1;
+  // Scopes to embed in the token. Empty means none.
+  repeated string scopes = 2;
+  // Time-to-live in seconds. 0 → server default (900s).
+  uint64 ttl_seconds = 3;
+  // Per-token call quota. 0 → unlimited.
+  uint32 max_calls = 4;
+}
+
+message MintTokenResponse {
+  // Compact binary token. Verify with `VerifyToken` or the SDK locally.
+  bytes token = 1;
+  string fingerprint = 2;
+}
+
+message VerifyTokenRequest {
+  bytes token = 1;
+  // Optional. If provided, must equal the token's embedded issuer pubkey.
+  bytes expected_pubkey = 2;
+}
+
+message VerifyTokenResponse {
+  bool valid = 1;
+  string error = 2;
+  string name = 3;
+  string project = 4;
+  repeated string scopes = 5;
+  int64 issued_at = 6;
+  int64 expires_at = 7;
+  uint32 max_calls = 8;
+  bytes issuer = 9;
+  string fingerprint = 10;
+}
+
+message ListIdentitiesRequest {}
+
+message Identity {
+  string name = 1;
+  string project = 2;
+  string fingerprint = 3;
+  string public_key = 4; // hex
+  int64 created_at = 5;
+}
+
+message ListIdentitiesResponse {
+  repeated Identity identities = 1;
+}
+
+message HealthRequest {}
+message HealthResponse {
+  string status = 1;
+  string version = 2;
+}
