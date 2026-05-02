@@ -1,0 +1,30 @@
+# Rust build artifacts
+target/
+*.pyd
+*.so
+*.dylib
+*.pdb
+Cargo.lock
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Maturin
+*.whl

@@ -1,0 +1,19 @@
+[package]
+name = "agentid-python"
+version = "0.1.0"
+edition = "2021"
+authors = ["Samvardhan Singh", "Muskan Gujar"]
+description = "Python bindings for agentid-core — cryptographic identity for AI agents."
+license = "Apache-2.0"
+repository = "https://github.com/samvardhan03/AgentID"
+keywords = ["agent", "identity", "ed25519", "python", "pyo3"]
+
+[lib]
+name = "agentid_python"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }
+
+# Pull in the core crate from the monorepo
+agentid-core = { path = "../../core", default-features = false }
