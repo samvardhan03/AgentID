@@ -11,19 +11,18 @@ Quick start::
     identity = AgentIdentity("research-bot", "phd-lab")
     token = identity.mint_token(scopes=["read:arxiv", "write:notes"], ttl_seconds=900)
     claims = verify_token(token, identity.public_key)
-    print(claims["fingerprint"])  # ag:sha256:022a6b57...
+    print(claims.fingerprint)  # ag:sha256:022a6b57...
 """
 
+__version__ = "0.1.0"
+
 from agentid.identity import AgentIdentity
-from agentid.token import verify_token, scope_matches
+from agentid.token import AgentClaims, verify_token, scope_matches
 
 __all__ = [
+    "__version__",
     "AgentIdentity",
+    "AgentClaims",
     "verify_token",
     "scope_matches",
 ]
-
-try:
-    from agentid._native import __version__
-except ImportError:
-    __version__ = "0.1.0-dev"
