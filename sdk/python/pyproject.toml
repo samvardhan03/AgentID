@@ -3,7 +3,7 @@ requires = ["maturin>=1.0,<2.0"]
 build-backend = "maturin"
 
 [project]
-name = "agentid-auth"
+name = "agentidentity-auth"
 version = "0.1.0"
 description = "Cryptographic identity for AI agents. Verifiable Ed25519 tokens replacing hardcoded API keys."
 readme = "README.md"
