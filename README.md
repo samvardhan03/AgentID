@@ -186,7 +186,7 @@ Apache License 2.0 — free for open-source and commercial use **with attributio
 
 For enterprise use requiring white-labelling or a no-attribution obligation, contact the author for a commercial licence.
 
-See [`LICENSE`](../LICENSE) for the full text.
+See [`LICENSE`](LICENSE) for the full text.
 
 ---
 

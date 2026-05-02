@@ -1,0 +1,17 @@
+{
+  "name": "@agentid/cli",
+  "version": "0.1.0",
+  "description": "AgentID command-line interface",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "agentid": "./index.ts"
+  },
+  "scripts": {
+    "start": "bun run index.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "cac": "^6.7.14"
+  }
+}

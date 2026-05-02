@@ -2,11 +2,19 @@
 name = "agentid-core"
 version = "0.1.0"
 edition = "2021"
-license = "Apache-2.0"
-description = "AgentID — cryptographic identity for AI agents (core engine)"
 authors = ["Samvardhan Singh"]
-repository = "https://github.com/samvardhan/agentid"
+description = "Cryptographic identity for AI agents. Replaces hardcoded API keys with offline-verifiable Ed25519 tokens."
+license = "Apache-2.0"
+repository = "https://github.com/samvardhan03/AgentID"
 readme = "../docs/README.md"
+keywords = ["agent", "identity", "ed25519", "authentication", "ai"]
+categories = ["cryptography", "authentication", "network-programming"]
+exclude = [
+    "target/",
+    "*.node",
+    "native/",
+    ".cargo/",
+]
 
 [lib]
 name = "agentid_core"
